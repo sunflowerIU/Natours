@@ -10,7 +10,7 @@ const hpp = require('hpp') ///hpp(http parameter pollution)  npm i hpp
 const cookieParser = require('cookie-parser')  //for parsing cookie
 
 
-
+//app start
 ///we will need template  engine to send the data that we had made until now
 //so we will use pug template engine
 app.set('view engine', 'pug'); //to set the engine as pug engine
