@@ -16,7 +16,7 @@ module.exports = class Email {
     //create transporter to send email
     createNewTransport() {
         if (process.env.NODE_ENV === 'production') { //if we are in production then send real email using sendGrid
-            console.log('emailllllllll')
+            // console.log('emailllllllll')
             return nodemailer.createTransport({
                 service: 'SendGrid',
                 auth: {
@@ -61,7 +61,7 @@ module.exports = class Email {
         }
 
         //3. create transporter and send email
-        console.log('await finish')
+        // console.log('await finish')
         await this.createNewTransport().sendMail(mailOptions)
     }
 

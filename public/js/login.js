@@ -46,7 +46,7 @@ const login = async (email, password) => {
         const res = await axios({
             withCredentials: true, //important because it will enable cookies to be stored
             method: 'POST',
-            url: 'http://127.0.0.1:1000/api/v1/users/login',
+            url: '/api/v1/users/login',
             data: {
                 email,
                 password
@@ -85,7 +85,7 @@ const logout = async () => {
         const res = await axios({
             // withCredentials:true,
             method: 'GET',
-            url: 'http://127.0.0.1:1000/api/v1/users/logout'
+            url: '/api/v1/users/logout'
         });
 
         //after logout is suceeded show laert msg and reload new page from server

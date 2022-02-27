@@ -99,7 +99,7 @@ userSchema.methods.changedPasswordAfter = function (JWTTimeStamp) {
         ///this.passwordChangedAt is date(2020-10-10) available in user because i entry that during making the user
         ///it is then changed into number in ms which is then changed into seconds and converted to integer with base10
         const passwordChangedAt = parseInt(this.passwordChangedAt.getTime() / 1000, 10)
-        console.log(passwordChangedAt, JWTTimeStamp)
+        // console.log(passwordChangedAt, JWTTimeStamp)
 
         return passwordChangedAt > JWTTimeStamp //suppose password changed at 200s(js date) and token decoded at 100s then password was changed after token was decoded which will be true
     } //where true is changed and false is not changed

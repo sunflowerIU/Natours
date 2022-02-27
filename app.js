@@ -8,7 +8,7 @@ const mongoSanitize = require('express-mongo-sanitize') ///for data sanitization
 const xss = require('xss-clean')
 const hpp = require('hpp') ///hpp(http parameter pollution)  npm i hpp
 const cookieParser = require('cookie-parser')  //for parsing cookie
-
+const compression = require('compression')
 
 //app start
 ///we will need template  engine to send the data that we had made until now
@@ -103,6 +103,8 @@ app.use(hpp({ ///but the problem is we want to still use more than one parameter
     ]
 }))
 
+
+app.use(compression())
 
 /////5. checking headers
 app.use((req, res, next) => {

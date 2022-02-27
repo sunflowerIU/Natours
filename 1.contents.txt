@@ -1,30 +1,4 @@
-//
-1. create stripe account
-2. create router for booking in routes with params of tourId
-3. add them in app.js
-4. make bookingcontroller.js
-5. in bookingController make getCheckoutSession function
-6. install stripe npm: npm i stripe
-7. copy stripe secret key to env file
-8. Then require the stripe package in bookingController with the secret key
-9. then in bookingController create a session and send it to response
-
-//processing payment from frontend
-1. in tour pug file only display the book now btn if the user is logged in otherwise show login btn
-2. to send request from frontend we need to first copy script of stripe and copy it to tour.pug
-3. then create axios call to create a session id
-4. then after the session is created redirect to checkout page by stripe.
-
-///creating bookings model
-1. make bookingModel.js file in model
-2. this model will be used for those to keep database of booked tours
-
-
-//creating new bookings on checkout success
-1. change the success url into nice format although it is not secure but we can use it for testing
-2. then create a function createBookingCheckout where if the url has query of tour,user and price then only make new booking with
-mongoose.create for the schema that we build previously
-
-//rendering booking tours
-1. first make a route for showing my booked tours in viewroutes then 
-2. in viewController make getMy  tours controller which will render my booked tours
+//setting for app deployment
+npm i compression //it will compress all the text that will be given as response to client
+1. now remove the unnecessary console.log files, and also remove host 1000 port in axios calls
+because our api and website is being depoyed in same host

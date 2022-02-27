@@ -6,9 +6,9 @@ const stripe = Stripe('pk_test_51KRD1MSDl6g11lboRcU5kc1psyaMWxvYwLyaK80snlU3Qe9W
 //now book that tour
 const bookTour = async tourId => {
     try { //1. get checkout session
-        const session = await axios(`http://127.0.0.1:1000/api/v1/bookings/checkout-session/${tourId}`) //since axios is already included in base file
+        const session = await axios(`/api/v1/bookings/checkout-session/${tourId}`) //since axios is already included in base file
 
-        console.log('session')
+        // console.log('session')
 
 
         //2. create checkout form + charge credit card
@@ -17,7 +17,7 @@ const bookTour = async tourId => {
         })
 
     } catch (err) {
-        console.log(err)
+        // console.log(err)
         showAlert('error occured')
     }
 

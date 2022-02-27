@@ -86,7 +86,7 @@ exports.updateMe = catchAsyncError(async (req, res, next) => {
 // 6. get my tours controller
 exports.getMyTours = catchAsyncError(async (req, res, next) => {
 try { //1. first find the bookings
-    console.log(req.user.id)
+    // console.log(req.user.id)
     const bookings = await Booking.find({
         user: req.user.id
     })
@@ -107,7 +107,7 @@ try { //1. first find the bookings
     })
 } catch (err) {
 
-    console.log(err)
+    // console.log(err)
     next()
 }
 
