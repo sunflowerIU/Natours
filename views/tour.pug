@@ -1,0 +1,123 @@
+//- this file is child el of the base template, but when this file is executed all the codes from base template
+//- are copied here except block content, which will be same as we typed here
+extends base
+
+//- the code below written will be appended to head block
+block append head
+  <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
+
+  //- stripe script
+  script(src="https://js.stripe.com/v3/")
+
+//- appending scripts into scripts block in main base. because it was causing bugs
+block append scripts
+  script(src ="/js/mapbox.js")
+  script(src="/js/stripe.js")  
+
+
+
+//- mixin is like function in pug, where we can insert some values and use them later
+mixin overviewBox(label,text,icon)
+  .overview-box__detail
+    svg.overview-box__icon
+      use(xlink:href=`/img/icons.svg#icon-${icon}`)
+    span.overview-box__label=label
+    span.overview-box__text=text
+
+
+
+
+block content 
+  section.section-header
+    .header__hero
+      .header__hero-overlay &nbsp;
+      img.header__hero-img(src=`/img/tours/${tour.imageCover}`, alt=`${tour.name}`)
+
+    .heading-box
+      h1.heading-primary
+        span= `${tour.name} tour`
+      .heading-box__group
+        .heading-box__detail
+          svg.heading-box__icon
+            use(xlink:href='/img/icons.svg#icon-clock')
+          span.heading-box__text=`${tour.duration} days`
+        .heading-box__detail
+          svg.heading-box__icon
+            use(xlink:href='/img/icons.svg#icon-map-pin')
+          span.heading-box__text=tour.startLocation.description
+
+  section.section-description
+    .overview-box
+      div
+        .overview-box__group
+          h2.heading-secondary.ma-bt-lg Quick facts
+          //- we can use js without using them anywhere just by using - sign
+          -const date = tour.startDates[0].toLocaleString('en-us',{month:'long',year:'numeric'})
+          //- we can invoke mixin by using + sign
+          +overviewBox('Next date',date,'calendar')
+          +overviewBox('Difficulty',tour.difficulty,'trending-up')
+          +overviewBox('Participants',`${tour.maxGroupSize} people`,'user')
+          +overviewBox('Rating',`${tour.ratingsAverage} / 5`,'star')
+
+
+
+        .overview-box__group
+          h2.heading-secondary.ma-bt-lg Your tour guides
+          //- looping over tour guides
+          each guide in tour.guides
+            .overview-box__detail
+              img.overview-box__img(src=`/img/users/${guide.photo}`, alt=`${guide.name}`)
+              -if(guide.role === 'guide')
+                span.overview-box__label Tour guide
+              -if(guide.role === 'lead-guide')
+                span.overview-box__label Lead guide
+              span.overview-box__text=guide.name
+
+
+    .description-box
+      h2.heading-secondary.ma-bt-lg=`about ${tour.name} tour`
+      -const paragraphs = tour.description.split('\n')
+      each paragraph in paragraphs
+        p.description__text=paragraph
+
+
+  section.section-pictures
+    //- looping througn picture array
+    each picture,index in tour.images
+      .picture-box
+        img.picture-box__img(src=`/img/tours/${picture}`, alt=`${tour.name} Tour ${index + 1}`, class = `picture-box__img--${index + 1}`) 
+
+  section.section-map
+    #map(data-locations=`${JSON.stringify(tour.locations)}`)
+
+  section.section-reviews
+    .reviews
+      each review in tour.reviews
+        .reviews__card
+          .reviews__avatar
+            img.reviews__avatar-img(src=`/img/users/${review.user[0].photo}`, alt=review.user[0].name)
+            h6.reviews__user=review.user[0].name
+          p.reviews__text=review.review
+          .reviews__rating
+            each star in [1,2,3,4,5]
+              svg.reviews__star(class=`reviews__star--${star>review.rating ? 'inactive':'active'}`)
+                use(xlink:href='/img/icons.svg#icon-star')
+
+
+  section.section-cta
+    .cta
+      .cta__img.cta__img--logo
+        img(src='/img/logo-white.png', alt='Natours logo')
+      img.cta__img.cta__img--1(src=`/img/tours/${tour.images[1]}`, alt='Tour Picture')
+      img.cta__img.cta__img--2(src=`/img/tours/${tour.images[2]}`, alt='Tour Picture')
+      .cta__content
+        h2.heading-secondary What are you waiting for?
+        p.cta__text=`${tour.duration} days. 1 adventure. Infinite memories. Make it yours today!`
+
+        //- if user is logged in then only show the book now btn otherwise show login
+        //- also we need the current tour id to proceed to checkout, so we will use dataset here
+        if user
+          button.btn.btn--green.span-all-rows#book-tour(data-tour-id=`${tour.id}`) Book tour now!
+        else
+          a.btn.btn--green.span-all-rows(href="/login") Login to book now

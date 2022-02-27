@@ -1,0 +1,32 @@
+doctype
+html(lang='en')
+    head
+        block head
+            meta(charset='utf-8')
+            //- meta(http-equiv="Content-Security-Policy" content="default-src 'self' ; style-src 'self' https: *.fonts.google.com; script-src 'self' https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js ; media-src 'none'; font-src *; connect-src 'self' https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js; img-src 'self' data: content:;")
+            //- meta(http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *;**script-src 'self' http://mapbox.com 'unsafe-inline' 'unsafe-eval';** ")
+            meta(name='viewport' content='width=device-width, initial-scale=1.0')
+            link(rel="stylesheet", href="/css/style.css")
+            link(rel='shortcut icon',type='image/png', href='/img/favicon.png')
+            link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Lato:300,300i,700")
+            title Natours | #{title || 'The Adventure'}
+    body
+        //HEADER
+        include _header
+
+        //Content
+        //- block is used as placeholder
+        block content
+            h1 Hello this is place holder
+        
+        //FOOTER
+        include _footer
+        
+
+        //scripts
+        block scripts
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js" integrity="sha512-u9akINsQsAkG9xjc1cnGF4zw5TFDwkxuc9vUp5dltDWYCSmyd0meygbvgXrlc/z7/o4a19Fb5V0OUE58J7dcyw==" crossorigin="anonymous" referrerpolicy="no-referrer")
+        script( src ="/js/login.js")
+        script(src='/js/updateSettings.js')
+
+
